@@ -3,9 +3,9 @@ title: "Picturing Distributions with Graphs"
 author: "Instructor: Tomer Altman"
 date: "Sept 5, 2025"
 #output: pdf_document
-#output: slidy_presentation
+output: slidy_presentation
 #output: beamer_presentation
-output: pdf_document
+#output: pdf_document
 editor_options: 
   chunk_output_type: console
 ---
