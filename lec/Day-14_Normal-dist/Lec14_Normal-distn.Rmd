@@ -102,7 +102,7 @@ p1
 - The standard deviation $\sigma$ must be a positive number
 - The mean is equal to the median (both = $\mu$)
 - The standard deviation captures the spread of the distribution
-- The area under the Normal distribution is equal to 1 (i.e., it is a density function)
+- The area under the Normal distribution is equal to $1$ (i.e., it is a density function)
 
 ### The 68-95-99.7 rule for all Normal distributions
 
@@ -110,7 +110,7 @@ p1
 - Approximately 95% of the data fall within two standard deviations of the mean
 - Approximately 99.7% of the data fall within three standard deviations of the mean
 
-Written probabilistically:
+Written with mathematical notation:
 
 - $P(\mu - \sigma < X < \mu + \sigma) \approx 68\%$
 - $P(\mu - 2\sigma < X < \mu + 2\sigma) \approx 95\%$
@@ -202,8 +202,8 @@ p1
 ### Standardizing Normally distributed data
 
 - Any random variable that follows a Normal distribution can be standardized.
-This means we can transform its distribution from being centred at $\mu$ with a 
-standard deviation of $\sigma$ to another Normal distributuin with $\mu=0$ and
+This means we can transform its distribution from being centered at $\mu$ with a 
+standard deviation of $\sigma$ to another Normal distribution with $\mu=0$ and
 standard deviation of $\sigma=1$
 - If $x$ is an observation from a distribution that has a mean $\mu$ and a 
 standard deviation $\sigma$, the standardized value of $x$ is calculated in the 
@@ -226,10 +226,10 @@ Source: [Intergrowth 21st Century](https://intergrowth21.tghn.org/)
 
 ### Standardizing Normally distributed data
 
-In this image, the solid red line shows the average birthweight as a function 
+In this image, the solid red line shows the average birth weight as a function 
 of gestational age for boys and girls.
 
-What is the approximate average birthweight in kilograms for a boy delivered at 
+What is the approximate average birth weight in kilograms for a boy delivered at 
 33 weeks?
 
 ```{r, out.width="50%", echo=F, fig.align='center'}
