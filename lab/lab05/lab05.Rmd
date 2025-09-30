@@ -267,7 +267,9 @@ p13
 
 # YOUR CODE HERE
 ```
-
+```{r}
+. = ottr::check("tests/p13.R")
+```
 \newpage
 
 **14. [0 point] Optional: Probability that at least one does not have a sedentary lifestyle.**
@@ -279,7 +281,9 @@ p14
 
 # YOUR CODE HERE
 ```
-
+```{r}
+. = ottr::check("tests/p14.R")
+```
 
 
 \newpage
