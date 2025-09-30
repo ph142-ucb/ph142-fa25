@@ -4,7 +4,7 @@ test = list(
     ottr::TestCase$new(
       hidden = FALSE,
       name = NA,
-      points = 0.0,
+      points = 1.0,
       code = {
         test_that("p14a", {
           expect_true(is.numeric(p14))
