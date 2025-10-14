@@ -152,6 +152,7 @@ contained in the CI"**. This description is ambiguous and imprecise.
 ### What would make the CI smaller (and more precise)?
 
 Recall the standard error (SE), which is $\frac{\sigma}{\sqrt{n}}$:
+
 - If we increase the sample size, the confidence interval becomes narrower and more precise
 - If the underlying variability in the data was smaller (i.e., $\sigma$ was 
 smaller), than the CI would be more precise
