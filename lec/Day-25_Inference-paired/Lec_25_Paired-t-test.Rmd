@@ -119,6 +119,9 @@ ggplot(chol_dat_long, aes(diet_n, cholesterol)) +
 # So what is different about the test? It's the standard error. 
 ```
 
+## Check your understanding!
+
+
 ## The paired $t$-test
 
 - We use a paired $t$-test when the data is **matched by design**
@@ -473,6 +476,9 @@ was 0.85 (0.80–0.90)."
     - This implies 543.7 events per day for the same number of children
 - The relative incidence is: $462.7 / 543.7 = 0.85$, as stated in the paper
 - The relative incidence is $< 1$ which indicates more events in the 9-18 day block after vaccination vs. the 0-3 day block
+
+## Check your understanding!
+
 
 ## Summary
 
