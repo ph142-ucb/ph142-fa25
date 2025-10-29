@@ -34,7 +34,9 @@ error of $\sqrt{\frac{p(1-p)}{n}}$
 If we follow the same format for the CI from previous chapters we would get:
 
 $$\hat{p} \pm z^* \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
-This is what is known as the **large sample confidence interval for a population proportion**
+This is what is known as the **large sample confidence interval for a population proportion**, or the Wald interval.
+
+### Check your understanding!
 
 ### But...
 
@@ -42,7 +44,7 @@ This is what is known as the **large sample confidence interval for a population
   - overly conservative (e.g., coverage significantly above 95\%), or 
   - anti-conservative, or permissive, or "poor coverage"
     - Fewer than 95 out of 100 of the 95% confidence intervals, on average, would contain the true value for the proportion $p$
-  - For the Wald approximation, for different combinations of $p$ and $n$, it can exhibit **both** problems!  
+  - For the Wald interval, for different combinations of $p$ and $n$, it can exhibit **both** problems!  
 - To overcome this, we will modify how we calculate the confidence interval slightly using what is known as the "plus four" method
 
 ### Introducing: the "Plus Four" Method
@@ -62,7 +64,7 @@ sample size by four imaginary trials), the interval can have better performance
 - Note we use $z^*$ rather than $t^*$. This is because the standard error of 
 the sampling distribution is completely determined by $p$ and $n$, we don't need
 to estimate a second parameter
-- In addition, for smaller samples (when one cannot rely on the CLT), one can rely on alternative methods to get inference that do not rely on Normality of the $\hat{p}$
+- In addition, for smaller samples (when one cannot rely on the CLT), one can rely on alternative methods to get inference that do not rely on Normality of $\hat{p}$
 
 - Use this method when $n \geq 10$
 ::::
@@ -76,7 +78,7 @@ Interval
 - You don't need to know why it works, just that it is better to use this 
 "plus four" trick if you're making a confidence interval for a proportion by hand
 
-- Note: if the number of successes and failures is relatively large, then the "plus four" method will converge with the large sample CI method
+- Note: if the number of successes and failures is relatively large, then the "plus four" method will converge with the large sample Wald CI method
 
 ### Two methods so far...
 
@@ -135,12 +137,12 @@ Suppose that 500 elderly individuals suffered hip fractures, of which
 100 died within a year of their fracture. Compute the 95% CI for the proportion
 who died using:
 
-- the large sample method
+- the large sample Wald method
 - the "plus four" method (by hand)
 - the Wilson Score method (using `prop.test`)
 - the Clopper Pearson Exact method (using `binom.test`)
 
-### Example of large sample method to calculate the CI for a proportion (by hand)
+### Example of large sample Wald method to calculate the CI for a proportion (by hand)
 
 ```{r}
 p.hat <- 100/500 # estimate proportion
@@ -150,7 +152,7 @@ p.hat + 1.96*se # Upper confidence bound
 ```
 
 - Our estimate for the proportion is $\hat{p}=20\%$
-- Using the large sample method, the 95% confidence interval is 16.5% to 23.5% 
+- Using the large sample Wald method, the 95% confidence interval is 16.5% to 23.5% 
 - Remember, this method has poor coverage, meaning that fewer than 95 of the 100 intervals we would make would contain the true value $p$ on average
 
 ### Example using the "plus four" method to calculate the CI for a proportion (by hand)
@@ -187,7 +189,7 @@ binom.test(x = 100, n = 500, conf.level = 0.95)
 
 :::: column
 - The 95% confidence interval using the exact binomial test is 16.6% to 23.8%
-- Note that this interval is wider than the one made with the large sample method
+- Note that this interval is wider than the one made with the large sample Wald method
   - It has larger coverage (contains the true value more often) which necessitates a wider interval
 - Note that the `binom.test` function is also conducting a two-sided hypothesis 
 test (where $H_0: p_0=0.5$, unless otherwise specified)
@@ -199,7 +201,7 @@ test (where $H_0: p_0=0.5$, unless otherwise specified)
 
 | Method       | 95% Confidence Interval | R Function       |
 |:------------:|:-----------------------:|:----------:|
-| Large sample | 16.5% to 23.5%          | by hand      |
+| Large sample Wald | 16.5% to 23.5%          | by hand      |
 | Plus four    | 16.7% to 23.7%          | by hand      |
 | Wilson Score* | 16.6% to 23.8%          | `prop.test`  |
 | Clopper Pearson**| 16.6% to 23.8%          | `binom.test` |
@@ -208,13 +210,13 @@ test (where $H_0: p_0=0.5$, unless otherwise specified)
 
 **also known as the exact method
 
-- Only the large sample method is symmetric around $\hat{p} = 20\%$. This is
-okay. Symmetric confidence intervals are applicable to Normal sampling distributions, which might or might not describe the distribution of $\hat{p}$. 
+- Only the large sample Wald method is symmetric around $\hat{p} = 20\%$. This is
+okay. Symmetric confidence intervals are applicable to Normal sampling distributions, which might or might not describe the distribution of $\hat{p}$
 - Non-symmetric CIs make sense because $p$ is bounded between 0 and 1. For example, if
 $p$ is very small, say 0.012, you would not want a CI that has a lower bound which is 
-negative, this would not make sense.
+negative, this would not make sense
 - When the Normal approximation assumptions are satisfied, the methods give very
-similar results.
+similar results
 
 ### Another example of the "plus four" method (by hand)
 
@@ -261,7 +263,7 @@ $\sqrt{n}m=z^*\sqrt{p(1-p)}$
 
 $\sqrt{n}=\frac{z^*}{m}\sqrt{p(1-p)}$
 
-$n = (\frac{z^*}{m})^2p^*(1-p^*)$
+$n = \big(\frac{z^*}{m}\big)^2p^*(1-p^*)$
 
 This last formula is the one we will use to estimate the required sample size.
 
@@ -390,7 +392,7 @@ Here are the 95% CIs applying the four different methods:
 
 | Method       | 95% Confidence Interval | R Function       |
 |--------------|:-----------------------:|--------------|
-| Large sample | -0.74% to 4.74%          | by hand      |
+| Large sample Wald | -0.74% to 4.74%          | by hand      |
 | Exact        | 0.024% to 7.04%          | `binom.test` |
 | Wilson Score* | 0.034% to 7.74%          | `prop.test`  |
 | Plus four    | 0.15% to 7.54%           | by hand      |
@@ -405,7 +407,7 @@ We can graphically compare the CIs from the previous slide:
 # students, don't worry about this code
 library(ggplot2)
 library(tibble)
-elderly_CIs <- tibble(method = c("large sample", "Exact", "Wilson", "Plus 4"),
+elderly_CIs <- tibble(method = c("large sample Wald", "Exact", "Wilson", "Plus 4"),
        lower = c(-0.74, 0.024, 0.034, 0.15),
        upper = c(4.74, 7.04, 7.74, 7.54),
        estimate = rep(2,4))
@@ -425,9 +427,9 @@ ggplot(data = elderly_CIs,
 
 Findings:
 
-- Notice how different the intervals are, especially large sample vs. others
-- Notice that the large sample lower bound is nonsensical (i.e., we can't have negative proportions!)
-- The large sample CI differs from the others because the Normal approximation assumptions are not satisfied
+- Notice how different the intervals are, especially large sample Wald vs. others
+- Notice that the large sample Wald lower bound is nonsensical (i.e., we can't have negative proportions!)
+- The large sample Wald CI differs from the others because the Normal approximation assumptions are not satisfied
 
 ### Code for elderly falls example
 
@@ -468,4 +470,4 @@ c(p.tilde - 1.96*se, p.tilde + 1.96*se) # CI
   - Subtle interactions between discrete binomial distribution and Normal-based approximations
   - Use "Plus 4" method when calculating "by hand" and sample is "small"
   - Use `prop.test` when using R functions
-  - The coverage problem goes away as the same size gets larger, and more of the Normality assumptions are met
+  - The coverage problem goes away as the sample size gets larger, and more of the Normality assumptions are met

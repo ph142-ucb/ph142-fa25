@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.22)  29 OCT 2025 07:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.22)  29 OCT 2025 16:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,7 +574,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 136.
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--199
+Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
@@ -582,41 +582,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--199
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-81.
+84.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 351.
+(amsmath)                 on input line 354.
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 387.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 390.
 [3] [4] [5] [6] [7]
 <Lec26_Inference-population-proportion_files/figure-latex/unnamed-chunk-5-1.pdf
-, id=82, 455.7025pt x 293.095pt>
+, id=83, 455.7025pt x 293.095pt>
 File: Lec26_Inference-population-proportion_files/figure-latex/unnamed-chunk-5-
 1.pdf Graphic file (type pdf)
 <use Lec26_Inference-population-proportion_files/figure-latex/unnamed-chunk-5-1
 .pdf>
 Package pdftex.def Info: Lec26_Inference-population-proportion_files/figure-lat
-ex/unnamed-chunk-5-1.pdf  used on input line 798.
+ex/unnamed-chunk-5-1.pdf  used on input line 800.
 (pdftex.def)             Requested size: 469.75502pt x 302.14165pt.
-
-Overfull \vbox (0.44632pt too high) detected at line 826
- []
-
 [8 <./Lec26_Inference-population-proportion_files/figure-latex/unnamed-chunk-5-
 1.pdf>] [9] (./Lec26_Inference-population-proportion.aux) ) 
 Here is how much of TeX's memory you used:
- 14316 strings out of 480247
- 227468 string characters out of 5896151
- 560530 words of memory out of 5000000
- 31874 multiletter control sequences out of 15000+600000
- 522010 words of font info for 120 fonts, out of 8000000 for 9000
+ 14323 strings out of 480247
+ 227560 string characters out of 5896151
+ 559586 words of memory out of 5000000
+ 31876 multiletter control sequences out of 15000+600000
+ 522176 words of font info for 122 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1228b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1228b,468s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fo
 nts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{
 /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips
@@ -633,11 +629,11 @@ sy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fo
 nts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pf
 b></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmtti10.pfb>
-Output written on Lec26_Inference-population-proportion.pdf (9 pages, 308452 by
+Output written on Lec26_Inference-population-proportion.pdf (9 pages, 308967 by
 tes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 28934 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 248 compressed objects within 3 object streams
+ 45 named destinations out of 1000 (max. 500000)
+ 28942 words of extra memory for PDF output out of 29859 (max. 10000000)
 
