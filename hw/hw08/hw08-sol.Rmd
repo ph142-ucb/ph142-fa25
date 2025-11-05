@@ -1,0 +1,535 @@
+---
+title: "Homework 8"
+author: "Your name and student ID"
+date: "Today's date"
+output:
+  pdf_document: default
+---
+
+### Instructions 
+* Solutions will be released on Tuesday, April 6
+* This semester, homework assignments are for practice only and will not be turned in for marks.
+
+```{r setup, include = FALSE}
+# Don't change these lines, just run them!
+source("setup/hw08.RAGS.R")
+```
+
+
+You would like to conduct a survey of high school students to determine
+the proportion who are current e-cigarettes users. Before you conduct your 
+survey, you need to determine how large of a sample size. Suppose that you would 
+like the width of the 95% confidence interval to be 2.5 percentage points.
+
+1. [1 point] Determine the most conservative sample size you would require and assign it to object p1. Recall that to do this, you need to use a $p^*$ of 0.5.
+
+```{r}
+p1 <- "YOUR ANSWER HERE" 
+# remember to remove " " if you want to store a number
+
+# BEGIN SOLUTION
+p1 <- ceiling((1.96/0.025)^2*0.5*(1-0.5))
+p1
+# END SOLUTION
+
+check_problem1()
+```
+
+
+# BEGIN SOLUTION
+$n = (z*/m)^2p*(1-p*)$
+$n = (1.96/0.025)^2\times0.5\times (1-0.5) = 1536.64 = 1537$
+
+Thus, we would need a sample size of 1537 high school students to obtain a margin
+of error of 2.5 percentage points if we assume the true prevalence is 50%.
+# END SOLUTION
+
+\newpage
+
+2. [1 point] You've seen a [recent publication](http://annals.org/aim/fullarticle/2698112/prevalence-distribution-e-cigarette-use-among-u-s-adults-behavioral) from the Annals of Internal Medicine that estimated that 9.2% of individuals aged 18 to 24 years old are current e-cigarette users. What is the sample size estimate assuming that $p^*=0.092$. 
+
+```{r}
+p2 <- "YOUR ANSWER HERE"
+# remember to remove " " if you want to store a number
+
+# BEGIN SOLUTION
+p2 <- ceiling((1.96/0.025)^2*0.092*(1-0.092))
+p2
+# END SOLUTION
+
+check_problem2()
+```
+
+
+# BEGIN SOLUTION
+$n = (z*/m)^2p*(1-p*)$
+$n = (1.96/0.025)^2\times0.092\times (1-0.092) = 513.459 = 514$
+
+Thus, we would need a sample size of 514 high school students to obtain a margin 
+of error of 2.5 percentage points if we assume the true prevalence is 9.2%.
+# END SOLUTION
+
+\newpage
+
+3. [1 point] The recent publication referenced in the previous question only looked at 
+adults (aged 18+), but observed that the rate of current use was inversely 
+related to age among the population they surveyed. Because of this finding
+would you suppose that the sample size estimated in part (b) is too low or too
+high?
+
+```{r}
+# Uncomment one of the following options:
+# p3 <- "Too low" 
+# p3 <- "Too high" 
+
+# BEGIN SOLUTION
+p3 <- "Too low" 
+# END SOLUTION
+
+check_problem3()
+```
+
+# BEGIN SOLUTION
+I would suppose that the estimated sample size is too low because the 
+true prevalence among highschool students is likely higher than among 18-24 
+year olds. If that is the case, then using a higher $p*$ in the sample size 
+calculation would increase the sample size required.
+# END SOLUTION
+
+\newpage
+
+Exclusive breastfeeding during the first six months of life is recommended for optimal 
+infant growth and development. Suppose that you conducted a survey of randomly chosen 
+women from California and found that 775 out of 5615 new mothers exclusively breast fed their infants.
+
+Perform all four of the methods discussed in lecture and during
+lab to create a 95% confidence interval for the proportion of infants 
+exclusively breast fed. 
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(tibble)
+```
+
+Store your answer to p4-p7 using the following format:
+
+```{r eval = F}
+
+# For example, if lowerbound = 10, upperbound = 20:
+pX <- c(10, 20)
+```
+
+4. [1 point] Use the large sample method of constructing a 95% CI. 
+```{r}
+# YOUR CODE HERE
+
+# Replace "lowerbound" and "upperbound" with your answer
+# If your answer is a number, make sure it doesn't have quotes around it
+p4 <- c("lowerbound", "upperbound")
+
+# BEGIN SOLUTION
+num_successes <- 775
+sample_size <- 5615
+
+p_hat <- num_successes/sample_size # estimate proportion
+se <- sqrt(p_hat*(1-p_hat)/sample_size) # standard error
+p4 <- c(p_hat - 1.96*se, p_hat + 1.96*se) # CI
+p4
+# END SOLUTION
+
+check_problem4()
+```
+
+5. [1 point] Use the Clopper Pearson (Exact) method of constructing a 95% CI.
+
+```{r}
+# YOUR CODE HERE
+
+# Replace "lowerbound" and "upperbound" with your answer
+# If your answer is a number, make sure it doesn't have quotes around it
+p5 <- c("lowerbound", "upperbound")
+
+# BEGIN SOLUTION
+exact_out <- binom.test(num_successes, sample_size, p=0.5)
+p5 <- c(exact_out$conf.int[1], exact_out$conf.int[2])
+p5
+# END SOLUTION
+check_problem5()
+```
+
+6. [1 point] Use the Wilson Score method of constructing a 95% CI with a continuity correction. 
+
+```{r}
+# YOUR CODE HERE
+
+# Replace "lowerbound" and "upperbound" with your answer
+# If your answer is a number, make sure it doesn't have quotes around it
+p6 <- c("lowerbound", "upperbound")
+
+# BEGIN SOLUTION
+wilson_out <- prop.test(num_successes, sample_size, p=0.5)
+p6 <-  c(wilson_out$conf.int[1], wilson_out$conf.int[2])
+p6
+# END SOLUTION
+check_problem6()
+```
+
+7. [1 point] Use the Plus Four method of constructing a 95% CI. 
+
+```{r}
+# YOUR CODE HERE
+
+# Replace "lowerbound" and "upperbound" with your answer
+# If your answer is a number, make sure it doesn't have quotes around it
+p7 <- c("lowerbound", "upperbound")
+
+# BEGIN SOLUTION
+p_tilde <- (num_successes + 2)/(sample_size + 4)
+se <- sqrt(p_tilde*(1 - p_tilde)/(sample_size + 4)) # standard error
+p7 <- c(p_tilde - 1.96*se, p_tilde + 1.96*se) # CI
+# END SOLUTION
+check_problem7()
+```
+
+\newpage
+
+8. [2 points] Create a plot comparing the confidence intervals. If you are stuck, refer back to the example code presented in Lab 8. *Note: If you choose to include the null hypothesis in your visualization, you will probably fail the last checkpoint. That is okay as long as your plot looks as expected.*
+
+```{r}
+p8 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+breastfeed_CIs <- tibble(method   =    c("large sample", "Exact",     "Wilson",      "Plus 4"),
+                  lower_CI = c(12.90011     , 12.91020   ,  12.91619   ,  12.92517),
+                  upper_CI = c(14.70452     , 14.73222   ,  14.73842   ,  14.73099),
+                  estimate = c(p_hat*100    , p_hat*100   ,  p_hat*100  ,  p_hat*100)
+                  )
+
+p8 <- ggplot(data = breastfeed_CIs, aes(x = method, y = estimate)) + 
+  geom_point() +
+  geom_segment(aes(x = method, xend = method, y = lower_CI, yend = upper_CI)) +
+  labs(y = "Estimate with 95% CI")
+p8
+# END SOLUTION
+
+check_problem8()
+```
+
+\newpage 
+
+9. [1 point] Do the methods produce confidence intervals that are basically the same or very different? Why?
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+The plot comparing the 4 CIs is below. They are nearly identical. This
+is because the sample size is large enough such that the CLT holds, implying that
+the large sample method is good, and so are all the other methods. When the 
+sample size is large enough, all the CIs should agree.
+# END SOLUTION
+
+\newpage 
+
+10. [1 point] Suppose that in 2010, the rate of exclusive breastfeeding in 
+California was known to be 18.6%. Based on the 95% CIs calculated in questions 4-7, is there evidence against the null hypothesis that the underlying rate is equal to 18.6% in 
+favor of the alternative that the rate is different from 18.6%?
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+18.6% falls far above all of the CIs. Because 18.6 is outside of the 
+range of the CIs, we can conclude that the p-value for the corresponding hypothesis
+test would be < 5% and conclude that yes, there is evidence in favor of the 
+alternative hypothesis that the rate differs from 18.6%
+# END SOLUTION
+
+\newpage 
+
+To confirm your answer to Problem 9, perform a two-sided hypothesis test and interpret the p-value. 
+
+11. [1 point] State the null and alternative hypotheses:
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+$H_0: \mu=18.6\%$ vs. $H_a: \mu \neq 18.6\%$
+# END SOLUTION
+
+\newpage
+
+12. [1 point] Calculate the test statistic:
+
+```{r}
+p12 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+n <- 5615
+p0 <- 0.186
+
+p12 <- ((p_hat - p0) / sqrt(p0 * (1-p0) / n))
+p12
+# END SOLUTION
+check_problem12()
+```
+
+# BEGIN SOLUTION
+z-test for one-sample test for a proportion:
+
+$z = \frac{\hat{p}-p_0}{\sqrt\frac{{p_0(1-p_0)}}{n}} = \frac{0.1380232-.186}{\sqrt\frac{{.186(1-.186)}}{5615}} = -9.239266$
+
+The test statistic is equal to -9.239266.
+# END SOLUTION
+
+\newpage
+
+13. [1 point] Calculate the p-value:
+
+```{r}
+p13 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+p13 <- pnorm(p12, lower.tail = T) * 2
+# END SOLUTION
+
+check_problem13()
+```
+
+\newpage
+
+14. [1 point] Interpret the p-value:
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+The p-value is very very tiny, much less than 0.0001%. This implies that the chance
+of seeing a proportion of 13.8% (or one even more different in magnitude) from 
+the null value of 18.6% is < 0.0001%. Thus, there is evidence against the null
+hypothesis, in favor of the alternative hypothesis that the proportion differs
+from 18.6%.
+# END SOLUTION
+
+\newpage
+
+
+The quadrivalent HPV vaccine was introduced to Canada in 2007, and was given to girls in Ontario, Canada who were enrolled in grade 8 (13-14 year olds). Before 2007, no girls received the vaccine, while in the 4 years after it was introduced nearly 40% of girls received the vaccine each year. One concern that some people had was that the vaccine itself would increase promiscuity if the girls felt a false sense of protection, which could thereby increase the prevalence of other sexually transmitted
+infections (STIs) among vaccinated girls. [This paper](https://www.ncbi.nlm.nih.gov/pubmed/25487660)
+examines this question using an advanced method called the "regression discontinuity"
+design which harnesses the abrupt change in vaccination status across cohorts
+of girls to estimate the causal effect of vaccination against HPV on the 
+occurrence of other STIs.
+
+Read only the abstract of the paper, and don't worry about the 
+details because these are advanced methods. Note that the term "RD" is the difference
+in risk of STIs between girls exposed and unexposed to HPV vaccination. We can
+therefore think of this risk difference as the difference between two proportions.
+
+15. [1 point] Interpret this result from the abstract: We identified 15 441 (5.9%) cases 
+of pregnancy and sexually transmitted infection and found no evidence that 
+vaccination increased the risk of this composite outcome: RD per 1000 
+girls -0.61 (95% confidence interval [CI] -10.71 to 9.49). 
+
+**In particular, what does -0.61 estimate?**
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+-0.61 is the estimated difference in the proportions of girls with an STI
+comparing girls who were vaccinated vs. girls who were not vaccinated.
+# END SOLUTION
+
+\newpage
+
+16. [1 point] The 95% confidence interval includes 0. What can you conclude about the
+p-value for a two-sided test of the difference between vaccinated and unvaccinated
+girls and their risk of sexually transmitted diseases?
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+Given that the null value for the $H_0$ that there is no difference
+is included in the 95% CI, we know that the corresponding two-sided test of 
+the difference between the underlying proportions would be greater than 5%. 
+# END SOLUTION
+
+\newpage
+
+An allergy to peanuts is increasingly common in Western
+countries. A randomized controlled trial enrolled infants with a diagnosed peanut
+sensitivity. Infants were randomized to either avoid peanuts or to consume them
+regularly until they reached age 5. At the end of the study, 18 out of the 51 
+randomized to avoid peanuts were tested to be allergic to peanuts. Only 5 out of the 47 
+randomized to consuming them regularly were tested to be allergic to peanuts. 
+
+17. [1 point] Estimate the difference between the two proportions.
+
+```{r}
+p17 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+succ1 <- 18
+n1 <- 51
+
+succ2 <- 5
+n2 <- 47
+
+p17 <- (18/51) - (5/47) # 35.3% - 10.6%
+p17
+# END SOLUTION
+
+check_problem17()
+```
+
+\newpage
+
+18. [1 point] Use the plus four method to find a 99% confidence interval for the difference between the two groups. Store the upper and lower bounds into an object called p18. 
+
+
+```{r}
+# YOUR CODE HERE
+
+# Replace "lowerbound" and "upperbound" with your answer
+# If your answer is a number, make sure it doesn't have quotes around it
+p18 <- c("lowerbound", "upperbound")
+
+# BEGIN SOLUTION
+p1_tilde <- (succ1 + 1)/(n1 + 2)
+p2_tilde <- (succ2 + 1)/(n2 + 2)
+se <- sqrt((p1_tilde*(1 - p1_tilde)/(n1 + 2)) + (p2_tilde*(1 - p2_tilde)/(n2 + 2)))
+
+p18 <- c((p1_tilde - p2_tilde) - 2.576 * se, (p1_tilde - p2_tilde) + 2.576 * se)
+p18
+# END SOLUTION
+
+check_problem18()
+```
+
+# BEGIN SOLUTION
+Solution: The 99% confidence interval for the difference is 2.78% to 44.4%.
+# END SOLUTION
+
+\newpage
+
+19. [1 point] Why would it have been inappropriate to use the large sample method to create a 99% CI?
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+Because the number of "successes" was 5 in the group who consumed 
+peanuts regularly. Since 5 < 10, it is not appropriate to use the large sample 
+method.
+# END SOLUTION
+
+\newpage
+
+Perform a two-sided hypothesis test for the difference between the groups. 
+Start by stating the null and alternative hypotheses, then calculate the test
+statistic, the p-value, and conclude with your interpretation of the p-value.
+
+
+20. [1 point] State the null and alternative hypotheses:
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+
+$H_0: p_1 = p_2$ vs. $H_0: p_1 \neq p_2$
+
+# END SOLUTION
+
+\newpage 
+
+21. [1 point] Calculate the test statistic:
+
+```{r}
+p21 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+phat <- (succ1 + succ2)/(n1 + n2)
+p21 <- (succ1/n1 - succ2/n2)/sqrt(phat*(1- phat)*(1/n1 + 1/n2))
+p21
+# END SOLUTION
+
+check_problem21()
+```
+
+# BEGIN SOLUTION
+First, calculate $\hat{p}$, the estimated probability of having a peanut
+allergy assuming that the proportions are the same: $\hat{p} = \frac{18+5}{51+47}=0.2346939$
+
+Then, the test statistic is: $\frac{\hat{p_1} - \hat{p_2}}{\sqrt{\hat{p}(1-\hat{p})\Big(\frac{1}{n_1} + \frac{1}{n_2}\Big)}} = \frac{0.3529412-0.106383}{\sqrt{0.2346939(1-0.2346939)\Big(\frac{1}{51} + \frac{1}{47}\Big)}} = 2.877213$
+# END SOLUTION
+
+\newpage
+
+22. [1 point] Calculate the p-value:
+
+```{r}
+p22 <- "YOUR ANSWER HERE"
+
+# BEGIN SOLUTION
+p22 <- pnorm(p21, lower.tail = F) * 2
+p22
+# END SOLUTION
+
+check_problem22()
+```
+
+\newpage
+
+23. [1 point] Interpret the p-value:
+
+[TODO: YOUR ANSWER HERE]
+
+# BEGIN SOLUTION
+The p-value is < 0.001. Because the p-value is so small there is evidence against
+the null hypothesis in favor of the alternative that there is a difference between
+the groups.
+# END SOLUTION
+
+\newpage
+
+24. [1 point] Suppose you were testing the hypotheses $H_0: \mu_d = 0$ and $H_a: \mu_d \neq 0$ in a paired design and obtain a p-value of 0.21. Which one of the following could be a possible 95% confidence interval for $\mu_d$?
+
+```{r}
+# Uncomment one of the following choices:
+# p24 <- "-2.30 to -0.70"
+# p24 <- "-1.20 to 0.90"
+# p24 <- "1.50 to 3.80"
+# p24 <- "4.50 to 6.90"
+
+# BEGIN SOLUTION
+p24 <- "-1.20 to 0.90"
+# END SOLUTION
+
+check_problem24()
+
+```
+
+\newpage 
+
+25. [1 point] Suppose you were testing the hypotheses $H_0: \mu_d = 0$ and $H_a: \mu_d \neq 0$ in a paired design and obtain a p-value of 0.02. Also suppose you computed confidence intervals for $\mu_d$. Based on the p-value which of the following are true?
+
+```{r}
+# Uncomment one of the following choices:
+# p25 <- "Both a 95% CI and a 99% CI will contain 0."
+# p25 <- "A 95% CI will contain 0, but a 99% CI will not."
+# p25 <- "A 95% CI will not contain 0, but a 99% CI will."
+# p25 <- "Neither a 95% CI nor a 99% CI interval will contain 0."
+
+# BEGIN SOLUTION
+p25 <- "A 95% CI will not contain 0, but a 99% CI will."
+# END SOLUTION
+
+check_problem25()
+```
+
+\newpage
+
+### Check your score
+
+Click on the middle icon on the top right of this code chunk (with the downwards gray arrow and green bar) to run all your code in order. Then, run this chunk to check your score.
+```{r check-total-score}
+# Just run this chunk.
+total_score()
+```
+
