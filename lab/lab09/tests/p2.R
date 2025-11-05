@@ -7,23 +7,15 @@ test = list(
       points = 1.0,
       code = {
         test_that("p2a", {
-          expect_true("ggplot" %in% class(plot2))
-          print("Checking: ggplot defined")
+          expect_true(all.equal(wilson_score_ci[1], 0.2229, tol = 0.01))
+          print("Checking: Lower bound is correct")
+  
         })
 
         test_that("p2b", {
-          expect_true(identical(plot2$data, nhanes))
-          print("Checking: nhanes data used")
-        })
-
-        test_that("p2c", {
-          expect_true(rlang::quo_get_expr(plot2$mapping$x) == "bpxsy1")
-          print("Checking: blood pressure on x axis on x-axis")
-        })
-
-        test_that("p2d", {
-          expect_true("FacetGrid" %in% class(plot2$facet) | "FacetWrap" %in% class(plot2$facet))
-          print("Checking: facet used")
+          expect_true(all.equal(wilson_score_ci[2], 0.5400, tol = 0.01))
+          print("Checking: Upper bound is correct")
+  
         })
       }
     )

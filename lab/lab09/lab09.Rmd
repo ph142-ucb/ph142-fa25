@@ -1,240 +1,191 @@
 ---
-title: "Lab 09: T tests and ANOVA"
-author: "Your name and student ID"
-date: "today's date"
+title: "Lab 09: Proportions and Inference"
+author: "name and student ID"
+date: "Today's date"
 output: pdf_document
 ---
 
-**Run this chunk of code to load the autograder package!**
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tibble)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
 library(testthat)
 ```
 
-### Instructions 
-* Due date: Nov 7th at 10:00pm PST with 2 hour grace period.
-* Late penalty: 50% late penalty if submitted within 24 hours of due date, no marks for assignments submitted thereafter.
+* Due date: Friday, November 7th at 10:00 pm PST with 2 hour grace period.
+* Late penalty: 50% late penalty if submitted within 24 hours of due date, no 
+marks for assignments submitted thereafter.
 * This assignment is graded on **correct completion**, all or nothing. You must pass all public tests and submit the assignment for credit.
 * Submission process: Follow the submission instructions on the final page. Make sure you do not remove any `\newpage` tags or rename this file, as this will break the submission.
 
-### Part 1: T tests and NHANES
+Helpful hints:
 
-The NHANES is a large national survey conducted by the CDC. We will look at a reduced set of data from the NHANES for this lab. 
+- Every function you need to use was taught during lecture! So you may need to 
+revisit the lecture code to help you along by opening the relevant files on Datahub. 
+Alternatively, you may wish to view the code in the condensed PDFs posted 
+on the course website. Good luck!
 
-```{r read, echo=FALSE}
-# load in the appropriate libraries
-library(readr)
-library(ggplot2)
-library(dplyr)
-library(broom)
-library(testthat)
+- Knit your file early and often to minimize knitting errors! If you copy and 
+paste code for the slides, you are bound to get an error that is hard to 
+diagnose. Typing out the code is the way to smooth knitting! We recommend 
+knitting your file each time after you write a few sentences/add a new code 
+chunk, so you can detect the source of knitting errors more easily. This will 
+save you and the GSIs from frustration! **You must knit correctly before submitting.**
 
-# Read CSV into R
-# include data/ because the file is in the data folder
-nhanes <- read_csv("data/nhanes.csv") 
+- If your code runs off the page of the knitted PDF then you will LOSE POINTS! To avoid this, have a look at your knitted PDF and ensure all the code fits in the file (you can easily view it on Gradescope via the provided link after submitting). If it doesn't look right, go back to your .Rmd file and add spaces (new lines) using the return or enter key so that the code runs onto the next line.
 
-nhanes <- na.omit(nhanes) # this code skip rows with missing values
+\newpage
+
+### Tests of changes in sex ratios based on a single sample
+
+There is a long literature studying changes in sex-ratios of births due to 
+stressful events, such as 9/11. In today's lab, we consider a relatively small 
+study that recorded biomarkers of stress on pregnancy. In the group of subjects
+that had the highest markers of stress (based on cortisol), there were 14 births
+to males out of a total of 38.
+
+In this lab, we will compare the four methods we learned to calculate CIs for
+proportions. Recall that two of these methods involved hand calculations (though
+we can treat R as if it were a calculator) and two of the methods used built-in
+R functions.
+
+**1. [1 point] Use the Normal approximation to construct a 95% confidence interval in this high stress group. We also called this specific method of constructing the CI the "large sample method". Assign the object `large_sample_ci` to a vector of the lower bound and upper bound rounded to 4 decimal places.**
+
+```{r large-sample-method}
+large_sample_ci <- NULL # YOUR CODE HERE
+large_sample_ci
+
+
+# YOUR CODE HERE
 ```
 
-**1. [1 point] We are interested in looking at the systolic blood pressure, `bpxsy`, by history of smoking, `hs`. Start by generating an appropriate box plot to look at these data.**
-
-```{r tags=c()}
-plot1 <- NULL # YOUR CODE HERE
-plot1
-
-```
+_Type your answer here, replacing this text._
 
 ```{r}
 . = ottr::check("tests/p1.R")
 ```
 
-\newpage
+**2. [1 point] Create the 95% CI again, this time using the R function that implements the Wilson Score method with a continuity correction. Round your answer to 4 decimal places.**
 
-**2. [1 point] Now generate a set of faceted histograms that show the same data.**
+```{r Wilson-score-method}
+wilson_score_ci <- NULL # YOUR CODE HERE
+wilson_score_ci
 
-```{r hist, echo=TRUE, tags=c()}
-plot2 <- NULL # YOUR CODE HERE
-plot2
 
+# YOUR CODE HERE
 ```
+
+_Type your answer here, replacing this text._
 
 ```{r}
 . = ottr::check("tests/p2.R")
 ```
 
-\newpage
+**3. [1 point] Create the 95% CI again, this time using the Plus 4 method. Round your answer to 4 decimal places.**
 
-**3. [1 point] Summarize the means and standard deviations of the systolic blood pressurea for each category of `hs`. Assign `p3` to a dataframe with the mean systolic blood pressures assigned to `mean_bp` and the standard deviations assigned to `sd_bp`.**
+```{r plus-4-method}
+plus_4_ci <- NULL # YOUR CODE HERE
+plus_4_ci
 
-```{r hist2, echo=TRUE, tags=c()}
-p3 <- NULL # YOUR CODE HERE
-p3
 
+# YOUR CODE HERE
 ```
+
+_Type your answer here, replacing this text._
 
 ```{r}
 . = ottr::check("tests/p3.R")
 ```
 
-\newpage
+**4. [1 point] Create the 95% CI again, this time using the R function that implements the Clopper Pearson (Exact) method. Round your answer to 4 decimal places.**
 
-**4. Do we meet the all of the assumptions to run a two-sample t-test? Why or why not?**
+```{r Clopper-Pearson-method}
+exact_method_ci <- NULL # YOUR CODE HERE
+exact_method_ci
+
+
+# YOUR CODE HERE
+```
 
 _Type your answer here, replacing this text._
 
-\newpage
+```{r}
+. = ottr::check("tests/p4.R")
+```
 
-**5. State the null and alternative hypotheses in the context of this question.**
+**5. Summarize the estimates from the four methods in the following table. Do they include the null hypothesized value for the sex ratio?**
+
+| Method        | 95% Confidence Interval | 
+|---------------|:-----------------------:|
+| Large sample  | AA.AA% to AA.AA%          |
+| Wilson Score* | AA.AA% to AA.AA%          | 
+| Plus four     | AA.AA% to AA.AA%          | 
+| Exact         | AA.AA% to AA.AA%          | 
+
+* with continuity correction.
 
 _Type your answer here, replacing this text._
 
-\newpage
+**6. [1 point] Here is a code template to help you to graphically present these estimates. Graphical presentations of estimates and their CIs is very useful for assessing whether the CIs overlap the null hypothesized value and tends to be better than presenting tables of estimates to readers of your research. Fill in the code below with your estimates for each confidence interval method, assign `p6` to the plot of the confidence intervals, then answer the question below.**
 
-**6. [1 point] Use an R function to test if the variability gives enough evidence to reject the null hypothesis of no difference between mean blood pressure by smoking history.**
+```{r}
+# First make a tibble (an easy way to make a data frame) with the data about
+# each confidence interval. To do this, replace each instance of 0.00 with the
+# estimate from your calculations above.
+sex_CIs <- tibble(method   = c("large sample", "Exact", "Wilson", "Plus 4"),
+                  lower_CI = c(0.0           , 0.0    ,  0.0    ,  0.0),
+                  upper_CI = c(0.0           , 0.0    ,  0.0    ,  0.0),
+                  estimate = c(0.0           , 0.0    ,  0.0    ,  0.0)
+                  )
+# Build the ggplot incrementally, to understand how it works.
+# Step 1: (why do we put a horizontal line at 50?)
+ggplot(data = sex_CIs, aes(x = method, y = estimate)) + 
+  geom_point() + 
+  geom_hline(aes(yintercept = 50), lty = 2)
 
-```{r echo=TRUE, tags=c()}
+
+# Step 2:
+ggplot(data = sex_CIs, aes(x = method, y = estimate)) + 
+  geom_point() +
+  geom_hline(aes(yintercept = 50), lty = 2) +
+  geom_segment(aes(x = method, xend = method, y = lower_CI, yend = upper_CI)) +
+  labs(y = "Estimate with 95% CI")
+
+
 p6 <- NULL # YOUR CODE HERE
 p6
 
+
+# YOUR CODE HERE
+
 ```
+
+What does `geom_segment()` do? In particular, what do `x`, `xend`, `y` and `yend` specify in this case?
+
+_Type your answer here, replacing this text._
 
 ```{r}
 . = ottr::check("tests/p6.R")
 ```
 
-\newpage
-
-**7. Use these results to interpret your p-value in the context of this question. Do you reject or fail to reject the null hypothesis?**
-
+**7. Based on this plot, what can you say about the confidence intervals for the sex ratio in the high stress group?**
 
 _Type your answer here, replacing this text._
 
-\newpage
-
-Repeat your analysis above without using the `t.test()` function.
-
-**8. [1 point] First calculate the test statistic by hand. Do not round and assign this value to `t_stat`.**
-
-```{r tags=c()}
-# this code gives you the number of smokers in the dataset
-n_s <- nrow(nhanes %>% filter(hs == 'History of smoking'))
-n_s
-
-# this code gives you the number of non-smokers in the dataset
-n_ns <- nrow(nhanes %>% filter(hs == 'No'))
-n_ns
-
-# calculate your test statistic. You can make more objects if you wish.
-t_stat <- NULL # YOUR CODE HERE
-t_stat
-
-
-```
+**8. Repeat the above analysis for the group with low stress. There were 25 births in this group, of which 17 of them were males.**
 
 ```{r}
-. = ottr::check("tests/p8.R")
+# YOUR CODE HERE
+
+# YOUR CODE HERE
 ```
 
-**9. [1 point] Now compare your test statistic to a t-distribution with df = 558 and calculate the p-value. This is an approximation using the smaller of the two sample sizes - 1.**
+**9. What can you say about the confidence intervals for the sex ratio in the low stress group?**
 
-```{r echo=TRUE, tags=c()}
-
-p_value <- NULL # YOUR CODE HERE
-p_value
-
-```
-
-```{r}
-. = ottr::check("tests/p9.R")
-```
-
-\newpage
-
-**10. [1 point] Finally, construct a 99% confidence interval for these data. Interpret the interval in the context of this question and decide whether or not to reject the null hypothesis.**
-
-```{r tags=c()}
-lowerbound <- NULL # YOUR CODE HERE
-upperbound <- NULL # YOUR CODE HERE
-conf_int <- c(lowerbound, upperbound)
-conf_int
-
-```
-
-```{r}
-. = ottr::check("tests/p10.R")
-```
-
-\newpage
-
-## Part 2: ANOVA
-
-**11. [1 point] We are interested in looking at the systolic blood pressure, `bpxsy1`, by BMI category, `bmicat`. Generate an appropriate box plot to visualize these data.**
-
-```{r tags=c()}
-plot11 <- NULL # YOUR CODE HERE
-plot11
-
-```
-
-```{r}
-. = ottr::check("tests/p11.R")
-```
-
-\newpage
-
-**12. [1 point] Now generate a set of faceted histograms that show the same data. It might be useful to assign a fill color to each category.**
-
-```{r hist-aov, echo=TRUE, tags=c()}
-plot12 <- NULL # YOUR CODE HERE
-plot12
-
-```
-
-```{r}
-. = ottr::check("tests/p12.R")
-```
-
-\newpage
-
-**13. [1 point] Summarize the means and standard deviations of the outcome for each BMI category. Assign `p13` to a dataframe with the mean systolic blood pressure assigned to `mean_bp` and the standard deviation assigned to `sd_bp`.**
-
-```{r hist2-aov, echo=TRUE, tags=c()}
-p13 <- NULL # YOUR CODE HERE
-p13
-
-```
-
-```{r}
-. = ottr::check("tests/p13.R")
-```
-
-\newpage
-
-**14. [1 point] Use an R function to test whether there is evidence to reject the null hypothesis of no difference between mean blood pressure by BMI category.**
-
-```{r echo=TRUE, tags=c()}
-p14 <- NULL # YOUR CODE HERE
-tidy(p14) # tidy displays your output. It lives in the `broom` package
-
-```
-
-```{r}
-. = ottr::check("tests/p14.R")
-```
-
-\newpage
-
-**15. [1 point] Conduct a Tukey's HSD test using these data. What can you conclude assuming a standard error rate of 5%?**
-
-```{r echo=TRUE, tags=c()}
-p15 <- NULL # YOUR CODE HERE
-tidy(p15) 
-
-```
-
-```{r}
-. = ottr::check("tests/p15.R")
-```
+_Type your answer here, replacing this text._
 
 \newpage
 
@@ -242,9 +193,10 @@ tidy(p15)
 
 For assignments in this class, you'll be submitting using the **Terminal** tab in the pane below. In order for the submission to work properly, make sure that:
 
-1. Any image files you add that are needed to knit the file are in the `src` folder and file paths are specified accordingly.
+1. Any image files you add that are needed to knit the file are in the `src` folder and file paths are specified accordingly. 
 2. You **have not changed the file name** of the assignment.
-3. The file knits properly.
+3. The file is saved (the file name in the tab should be **black**, not red with an asterisk).
+4. The file knits properly.
 
 Once you have checked these items, you can proceed to submit your assignment.
 
@@ -253,8 +205,18 @@ Once you have checked these items, you can proceed to submit your assignment.
 
 cd; cd ph142-fa25/lab/lab09; python3 turn_in.py
 
-3. Follow the prompts to enter your Gradescope username and password.
-4. If the submission is successful, you should see "Submission successful!" appear as the output. **Check your submission on the Gradescope website to ensure that the autograder worked properly and you received credit for your correct answers. If you think the autograder is incorrectly grading your work, please post on Ed!**
-5. If the submission fails, try to diagnose the issue using the error messages--if you have problems, post on Ed under the post "Datahub Issues".
+3. Follow the prompts to enter your Gradescope username and password. When entering your password, you won't see anything come up on the screen--don't worry! This is just for security purposes--just keep typing and hit enter.
+4. If the submission is successful, you should see "Submission successful!" appear as output.
+5. If the submission fails, try to diagnose the issue using the error messages--if you have problems, post on Piazza. 
 
 The late policy will be strictly enforced, **no matter the reason**, including submission issues, so be sure to submit early enough to have time to diagnose issues if problems arise.
+
+
+## Submission
+
+Make sure you have run all cells in your notebook in order before running the cell below, so that all images/graphs appear in the output. The cell below will generate a zip file for you to submit. **Please save before exporting!**
+
+```{r}
+# Save your notebook first, then run this cell to export your submission.
+ottr::export("lab09_fall.Rmd", pdf = TRUE)
+```
