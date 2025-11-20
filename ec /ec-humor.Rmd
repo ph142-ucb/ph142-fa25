@@ -38,5 +38,5 @@ If you use images of photos as part of your illustration, make sure that these a
 
 ## Submission
 1. Format your illustration **and** your explanation as a **single pdf**. You can do this by creating a Rmd and using knitr to display your illustration with the explanation below.
-2. Log into Gradescope and select the assignment titled 'Extra Credit Stats Humor'. Upload the pdf manually.
+2. Log into Gradescope and select the assignment titled 'Extra Credit'. Upload the pdf manually.
 3. Find the Ed thread 'Extra Credit - Stats Humor' and post your illustration.
