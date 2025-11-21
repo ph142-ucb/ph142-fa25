@@ -1,0 +1,990 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  aspectratio=169]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usetheme{Goettingen}
+\renewcommand{\textbf}{\structure}
+\renewcommand{\mathbf}{\structure}
+\addtobeamertemplate{navigation symbols}{}{ \usebeamerfont{footline} }
+\addtobeamertemplate{navigation symbols}{}{ \usebeamercolor[fg]{footline} }
+\addtobeamertemplate{navigation symbols}{}{ \insertframenumber/\inserttotalframenumber }
+\usepackage[os=win]{menukeys}
+\usepackage{soul}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage[os=win]{menukeys}
+\usepackage{copyrightbox}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Lecture 36: Non-Parametric Statistical Tests},
+  pdfauthor={Corrine Riddell (Instructor: Tomer Altman)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Lecture 36: Non-Parametric Statistical Tests}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Chapter 27}
+\author{Corrine Riddell (Instructor: Tomer Altman)}
+\date{November 21, 2025}
+
+\begin{document}
+\maketitle
+
+\subsubsection{Concussions}\label{concussions}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{./images/concussionmovie} \end{center}
+
+\begin{quote}
+In Pittsburgh, accomplished pathologist Dr.~Bennet Omalu uncovers the
+truth about brain damage in football players who suffer repeated
+concussions in the course of normal play.
+\end{quote}
+
+\href{https://www.imdb.com/title/tt3322364/}{Concussion (IMDB)}
+
+\subsubsection{Article on Concussions}\label{article-on-concussions}
+
+\begin{center}\includegraphics[width=1\linewidth]{./images/concussion_nytimes} \end{center}
+
+\href{https://www.nytimes.com/2019/04/10/health/concussion-nfl-football-cte.html}{New
+York Times, April 10, 2019}
+
+\subsubsection{From the article:}\label{from-the-article}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{./images/concussion_nejm} \end{center}
+
+\begin{itemize}
+\item
+  The authors of the study and outside experts stressed that such tau
+  imaging is far from a diagnostic test for C.T.E., which is likely
+  years away and could include other markers, from blood and spinal
+  fluid
+\item
+  The results of the study, published in
+  \href{https://www.nejm.org/doi/10.1056/NEJMoa1900757}{The New England
+  Journal of Medicine} are considered preliminary, but constitute a
+  first step toward developing a clinical test to determine the presence
+  of C.T.E. in living players, as well as early signs and potential risk
+\end{itemize}
+
+\subsubsection{From the article}\label{from-the-article-1}
+
+\begin{quote}
+STATISTICAL ANALYSIS
+\end{quote}
+
+\begin{quote}
+Between-group comparisons of age, years of education, and MMSE scores
+were analyzed with \textbf{Mann--Whitney U tests}. Group differences in
+race were analyzed with the use of \textbf{chi-square tests}. For
+between-group comparisons of amyloid-beta plaque burden, chi-square
+tests were used to compare the proportion of participants with a
+positive florbetapir PET, and \textbf{t-tests} were used to compare the
+mean cortical:cerebellar florbetapir standard uptake value ratio (SUVR,
+the ratio of radioactivity in a cerebral region to that in the
+cerebellum as a reference) between the groups.
+\end{quote}
+
+\subsubsection{From the article}\label{from-the-article-2}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{./images/concussion_graphs} \end{center}
+
+\subsubsection{Roadmap}\label{roadmap}
+
+Parametric Testing:
+
+\begin{itemize}
+\tightlist
+\item
+  One sample comparison to a mean (one sample t-test)
+\item
+  Two independent samples (two sample t-test)
+\item
+  Two non-independent samples (paired t-test)
+\item
+  Multiple samples/groups (ANOVA)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Bonferroni
+  \item
+    Tukey's HSD
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Roadmap}\label{roadmap-1}
+
+But all of the methods we have looked at so far depend on some
+assumptions about the underlying distribution.
+
+What have we assumed?
+
+What do we do if our assumptions are violated?
+
+\subsection{Non-Parametric Testing}\label{non-parametric-testing}
+
+\subsubsection{Non-Parametric Testing}\label{non-parametric-testing-1}
+
+\begin{center}\includegraphics[width=0.6\linewidth]{./images/nonpara} \end{center}
+
+From \url{http://biostatisticsryangoslingreturns.tumblr.com/}
+
+\subsubsection{Non-Parametric Testing}\label{non-parametric-testing-2}
+
+\textbf{PROS}: Non-parametric methods make very few assumptions about
+the variable(s) we samples or their distribution and thus rely less on
+``parameters''.
+
+\begin{itemize}
+\tightlist
+\item
+  Use a ranking of the data instead of actual values
+\item
+  Do not assume a normal distribution of the data
+\item
+  Less sensitive to outliers and skewed data
+\item
+  Do not need a large sample size (sometimes)
+\end{itemize}
+
+\textbf{CONS}: Non-parametric methods use less of the information
+offered in the data
+
+\begin{itemize}
+\tightlist
+\item
+  If the assumptions for a parametric test are met and a non-parametric
+  test is used, it will have lower power (probability of detecting a
+  false null hypothesis)
+\item
+  They are less specific in what they test (e.g., independence)
+\end{itemize}
+
+\subsubsection{Non-Parametric Testing}\label{non-parametric-testing-3}
+
+We will discuss non-parametric equivalents for:
+
+Two sample t : Wilcoxon Rank-Sum
+
+Paired t : Wilcoxon sign-rank
+
+ANOVA: Kruskal-Wallis
+
+\subsection{Wilcoxon Two-Sample Tests}\label{wilcoxon-two-sample-tests}
+
+\subsubsection{Frank Wilcoxon}\label{frank-wilcoxon}
+
+\begin{center}\includegraphics[width=0.6\linewidth]{./images/wilcox} \end{center}
+
+In one paper in 1945 he proposed both the Wilcoxon rank-sum test and the
+Wilcoxon signed-rank test.
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum}
+
+\begin{itemize}
+\tightlist
+\item
+  Sometimes also called the Mann-Whitney U test
+\item
+  Non-parametric test for comparing two independent samples with a
+  continuous outcome
+\item
+  This is the non-parametric counterpart of the two sample t-test
+\item
+  Assumes that the distributions have the same general shape but assumes
+  nothing about that shape
+\item
+  Evaluates the null hypothesis that the two population distributions
+  are identical
+\end{itemize}
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum-1}
+
+To calculate a rank sum test:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The observations from both groups are ordered from lowest to highest
+  and assigned the \textbf{rank} of their order
+\item
+  If there are ``tied'' values, these are assigned the average of the
+  ranks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    E.g., if two observations have the same value and the next lower
+    value has a rank of three, then the two observations are both given
+    the rank of 4.5 (because they would have been ranks 4 and 5)
+  \end{itemize}
+\item
+  Then the sum of ranks belonging to Group 1 are compared to the sum of
+  ranks belonging to Group 2
+\end{enumerate}
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum-2}
+
+Values in group 1: 4, 3, 5, 2, 6
+
+Values in group 2: 6, 5, 7, 4, 8
+
+\subsubsection{Wilcoxon Rank-Sum:
+Ranking}\label{wilcoxon-rank-sum-ranking}
+
+\begin{longtable}[]{@{}lllllllllll@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Number & 2 & 3 & 4 & 4 & 5 & 5 & 6 & 6 & 7 & 8 \\
+Index & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+Rank & 1 & 2 & 3.5 & 3.5 & 5.5 & 5.5 & 7.5 & 7.5 & 9 & 10 \\
+-------- & --- & --- & ----- & ----- & ----- & ----- & ----- & ----- &
+--- & ---- \\
+\end{longtable}
+
+\subsubsection{Wilcoxon Rank-Sum:
+Summation}\label{wilcoxon-rank-sum-summation}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Group 1 & rank & Group 2 & rank \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+4 & 3.5 & 6 & 7.5 \\
+3 & 2 & 5 & 5.5 \\
+5 & 5.5 & 7 & 9 \\
+2 & 1 & 4 & 3.5 \\
+6 & 7.5 & 8 & 10 \\
+--------- & ------ & --------------- & ----------- \\
+sum & 19.5 & sum & 35.5 \\
+\end{longtable}
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum-3}
+
+The smaller of the two sums is called W, with size of \(n_S\), and the
+larger with size \(n_L\). This is then used in the following equation to
+generate a Z statistic.
+
+\[Z_{w}=\frac{W-\mu_w}{\sigma_{w}}\] where
+
+\[\mu_w=\frac{n_S(n_S+n_L+1)}{2}\] and
+
+\[\sigma_{w}=\sqrt{\frac{n_Sn_L(n_S+n_L+1)}{12}}\]
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum-4}
+
+So from our example where group 1 had a rank sum of 19.5 and group 2 had
+a rank sum of 35.5
+
+\[\mu_w=\frac{n_S(n_S+n_L+1)}{2}=\frac{5(5+5+1)}{2}=27.5\] and
+
+\[\sigma_{w}=\sqrt{\frac{n_Sn_L(n_S+n_L+1)}{12}}=\sqrt{\frac{5\times5(5+5+1)}{12}}=4.8\]
+
+\[Z_{w}=\frac{W-\mu_w}{\sigma_{w}}=\frac{19.5-27.5}{4.8}=-1.67\]
+
+\subsubsection{Wilcoxon Rank-Sum}\label{wilcoxon-rank-sum-5}
+
+The \(Z_{w}\) we generate follows an approximate standard Normal
+distribution. So we can use our Z score to get a p-value in R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{*}\FunctionTok{pnorm}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1.67}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.09491936
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum in R}\label{wilcoxon-rank-sum-in-r}
+
+The general syntax will be:
+
+\texttt{wilcox.test(group1,\ group2,\ paired=F)}
+
+or
+
+\texttt{wilcox.test(outcome\ \textasciitilde{}\ group)}
+
+Remember that you can always type \texttt{help(wilcox.test)} in your
+console to get the full details.
+
+\subsubsection{Wilcoxon Rank-Sum example:
+Phenylketonuria}\label{wilcoxon-rank-sum-example-phenylketonuria}
+
+Normalized mental age scores for children with phenylketonuria (PKU):
+
+Group 1: ``low exposure'' \textless{} 10.0 mg/dl
+
+Group 2: ``high exposure'' \textgreater= 10.0 mg/dl
+
+\subsubsection{Wilcoxon Rank-Sum:
+Phenylketonuria}\label{wilcoxon-rank-sum-phenylketonuria}
+
+\begin{verbatim}
+##   Group  nMA
+## 1   low 34.5
+## 2   low 37.5
+## 3   low 39.5
+## 4   low 40.0
+## 5   low 45.5
+## 6   low 47.0
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum:
+Phenylketonuria}\label{wilcoxon-rank-sum-phenylketonuria-1}
+
+In this example there 18 High and 21 Low exposure individuals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{group\_by}\NormalTok{(pku,Group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{count =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{median =} \FunctionTok{median}\NormalTok{(nMA, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{IQR =} \FunctionTok{IQR}\NormalTok{(nMA, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   Group count median   IQR
+##   <chr> <int>  <dbl> <dbl>
+## 1 high     18   48.2  9.12
+## 2 low      21   51    7
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum:
+Phenylketonuria}\label{wilcoxon-rank-sum-phenylketonuria-2}
+
+If we graph the distributions with a density plot what do we notice?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(pku, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ nMA)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =}\NormalTok{ Group), }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Lec36_NonParamStat_files/figure-latex/unnamed-chunk-5-1} \end{center}
+
+\subsubsection{Wilcoxon Rank-Sum:
+Phenylketonuria}\label{wilcoxon-rank-sum-phenylketonuria-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(nMA }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Group, }\AttributeTok{data=}\NormalTok{pku)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  nMA by Group
+## W = 142, p-value = 0.1896
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\subsubsection{Check your
+understanding!}\label{check-your-understanding}
+
+\subsubsection{Wilcoxon Rank-Sum vs T: NHANES
+example}\label{wilcoxon-rank-sum-vs-t-nhanes-example}
+
+Here I will again use the NHANES data as an example, looking at height
+by gender:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read CSV into R}
+\NormalTok{nhanes }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\AttributeTok{file=}\StringTok{"./data/nhanes.csv"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep=}\StringTok{","}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(nhanes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "ridageyr"  "agegroup"  "gender"    "military"  "born"      "citizen"  
+##  [7] "drinks"    "drinkscat" "bmxwt"     "bmxht"     "bmxbmi"    "bmicat"   
+## [13] "bpxpls"    "bpxsy1"    "bpxsy2"    "sys1d"     "sys2d"     "bpxdi1"   
+## [19] "bpxdi2"    "dias1d"    "dias2d"    "bpcat"     "chest"     "fs1"      
+## [25] "fs2"       "fs3"       "lbdhdd"    "hdlcat"    "highhdl"   "hi"       
+## [31] "asthma"    "vwa"       "vra"       "va"        "aspirin"   "sleep"    
+## [37] "is"        "hs"        "lbdldl"    "highldl"
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum vs T: NHANES
+example}\label{wilcoxon-rank-sum-vs-t-nhanes-example-1}
+
+\includegraphics[width=0.5\linewidth]{Lec36_NonParamStat_files/figure-latex/wil1-1}
+
+\subsubsection{Wilcoxon Rank-Sum vs T}\label{wilcoxon-rank-sum-vs-t}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(nhanes, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ bmxht)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{gender), }\AttributeTok{alpha=}\FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.6\linewidth]{Lec36_NonParamStat_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+\subsubsection{Wilcoxon Rank-Sum vs T}\label{wilcoxon-rank-sum-vs-t-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(malesht, femalesht, }\AttributeTok{paired=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  malesht and femalesht
+## t = 47.285, df = 2384, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  13.37441 14.53172
+## sample estimates:
+## mean of x mean of y 
+##  174.4717  160.5186
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum vs T}\label{wilcoxon-rank-sum-vs-t-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(malesht,femalesht)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  malesht and femalesht
+## W = 1402065, p-value < 2.2e-16
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum vs T}\label{wilcoxon-rank-sum-vs-t-3}
+
+\begin{itemize}
+\tightlist
+\item
+  When the sample size is quite large (as with these NHANES data) the
+  assumption of approximate normality (due to CLT) is reasonable one and
+  the results of the hypothesis testing will generally not be different
+  using a parametric or non-parametric approach.
+\item
+  In smaller sample sizes, with potential outliers, can get more
+  reliable results using Wilcoxon (exact version) than equivalent t-test
+\end{itemize}
+
+\subsection{Wilcoxon Sign Rank}\label{wilcoxon-sign-rank}
+
+\subsubsection{Wilcoxon Sign Rank}\label{wilcoxon-sign-rank-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Non-parametric test for comparing two non-independent (paired) sample
+  means
+\item
+  This is the non-parametric counterpart of the paired t-test
+\item
+  Assumes that the distributions have the same general shape but assumes
+  nothing about that shape
+\item
+  Evaluates the null hypothesis that the difference between the paired
+  values is 0
+\end{itemize}
+
+\subsubsection{Wilcoxon Sign Rank}\label{wilcoxon-sign-rank-2}
+
+Steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Calculate the difference between each pair of observations
+\item
+  Rank the difference by absolute value from smallest to largest (again,
+  tied values get the average of the ranks). Any pair where there is no
+  difference is thrown out.
+\item
+  Record the ``sign'' of the difference (i.e., positive or negative )
+\item
+  Take the sum of the positive ranks and the sum of the negative ranks
+  (the smaller sum is denoted with a \texttt{T})
+\end{enumerate}
+
+\subsubsection{Wilcoxon Sign Rank}\label{wilcoxon-sign-rank-3}
+
+Under the null hypothesis that the difference is zero, we would expect
+the sample to have equal numbers of positive and negative ranks with
+equivalent sums. This expectation is tested against the statistic
+\[Z_{T}=\frac{T-\mu_{T}}{\sigma_{T}}\]
+
+Where \[\mu_{T}=\frac{n(n+1)}{4}\] and
+\[\sigma_{T}=\sqrt{\frac{n(n+1)(2n+1)}{24}}\]
+
+\subsubsection{Wilcoxon Sign Rank: Example Pre- and
+Post-Test}\label{wilcoxon-sign-rank-example-pre--and-post-test}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Time 1 & Time 2 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+65 & 77 \\
+87 & 100 \\
+77 & 75 \\
+90 & 89 \\
+70 & 80 \\
+84 & 81 \\
+92 & 91 \\
+83 & 96 \\
+85 & 84 \\
+91 & 89 \\
+68 & 88 \\
+72 & 100 \\
+81 & 81 \\
+--------- & ------ \\
+\end{longtable}
+
+\subsubsection{Sign Rank Example}\label{sign-rank-example}
+
+\begin{center}\includegraphics[width=0.6\linewidth]{Lec36_NonParamStat_files/figure-latex/unnamed-chunk-8-1} \end{center}
+
+\subsubsection{Sign Rank Example: Calculate Difference and
+Sign}\label{sign-rank-example-calculate-difference-and-sign}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Time 1 & Time 2 & Difference & sign \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+65 & 77 & 12 & + \\
+87 & 100 & 13 & + \\
+77 & 75 & -2 & - \\
+90 & 89 & -1 & - \\
+70 & 80 & 10 & + \\
+84 & 81 & -3 & - \\
+92 & 91 & -1 & - \\
+83 & 96 & 13 & + \\
+85 & 84 & -1 & - \\
+91 & 89 & -2 & - \\
+68 & 88 & 20 & + \\
+72 & 100 & 18 & + \\
+81 & 81 & 0 & ? \\
+--------- & ------ & ---- & ------ \\
+\end{longtable}
+
+\subsubsection{Sign Rank Example: Sort by Absolute Value and Assign
+Rank}\label{sign-rank-example-sort-by-absolute-value-and-assign-rank}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+Time 1 & Time 2 & Difference & sign & rank \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+90 & 89 & -1 & - & 2 \\
+92 & 91 & -1 & - & 2 \\
+85 & 84 & -1 & - & 2 \\
+77 & 75 & -2 & - & 4.5 \\
+91 & 89 & -2 & - & 4.5 \\
+84 & 81 & -3 & - & 6 \\
+70 & 80 & 10 & + & 7 \\
+65 & 77 & 12 & + & 8 \\
+87 & 100 & 13 & + & 9.5 \\
+83 & 96 & 13 & + & 9.5 \\
+72 & 100 & 18 & + & 11 \\
+68 & 88 & 20 & + & 12 \\
+81 & 81 & 0 & ? & \textbf{drop} \\
+--------- & ------ & ---- & ------ & \\
+\end{longtable}
+
+\subsubsection{Sign Rank Example: Sum the Positive and Negative
+Ranks}\label{sign-rank-example-sum-the-positive-and-negative-ranks}
+
+Negative signs
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+Time 1 & Time 2 & Difference & sign & rank \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+90 & 89 & -1 & - & 2 \\
+92 & 91 & -1 & - & 2 \\
+85 & 84 & -1 & - & 2 \\
+77 & 75 & -2 & - & 4.5 \\
+91 & 89 & -2 & - & 4.5 \\
+84 & 81 & -3 & - & 6 \\
+--------- & ------ & ---- & ------ & \\
+\end{longtable}
+
+Sum of negative sign ranks is 21.
+
+\subsubsection{Sign Rank Example: Sum the Positive and Negative
+Ranks}\label{sign-rank-example-sum-the-positive-and-negative-ranks-1}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+Time 1 & Time 2 & Difference & sign & rank \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+70 & 80 & 10 & + & 7 \\
+65 & 77 & 12 & + & 8 \\
+87 & 100 & 13 & + & 9.5 \\
+83 & 96 & 13 & + & 9.5 \\
+72 & 100 & 18 & + & 11 \\
+68 & 88 & 20 & + & 12 \\
+--------- & ------ & ---- & ------ & \\
+\end{longtable}
+
+Sum of the positive sign ranks is 57.
+
+\subsubsection{Wilcoxon Sign Rank:
+Example}\label{wilcoxon-sign-rank-example}
+
+Our expectation would be:
+\[\mu_{T}=\frac{n(n+1)}{4}=\frac{12(12+1)}{4}=39\] \textbf{Remember that
+we had 13 observations, but we dropped one because the values at times 1
+and 2 were the same} and
+\[\sigma_{T}=\sqrt{\frac{n(n+1)(2n+1)}{24}}=\sqrt{\frac{12(12+1)(2\times12+1)}{24}}=12.75\]
+
+\subsubsection{Wilcoxon Sign Rank:
+Example}\label{wilcoxon-sign-rank-example-1}
+
+And we compare our expectation to the smaller rank value (Sum of
+negative ranks was 21, sum of positive ranks was 57):
+\[Z_{T}=\frac{T-\mu_{T}}{\sigma_{T}}=\frac{21-39}{12.75}=-1.412\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{*}\FunctionTok{pnorm}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1.412}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.15795
+\end{verbatim}
+
+\subsubsection{Wilcoxon Rank-Sum in R}\label{wilcoxon-rank-sum-in-r-1}
+
+The general syntax will be:
+
+\texttt{wilcox.test(group1,\ group2,\ paired=T)}
+
+or
+
+\texttt{wilcox.test(Pair(group,outcome)\ \textasciitilde{}\ 1)}
+
+\subsubsection{Wilcoxon Sign Rank:
+Example}\label{wilcoxon-sign-rank-example-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(test1,test2,}\AttributeTok{paired=}\NormalTok{T, }\AttributeTok{correct=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(test1, test2, paired = T, correct = FALSE):
+## cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(test1, test2, paired = T, correct = FALSE):
+## cannot compute exact p-value with zeroes
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Wilcoxon signed rank test
+## 
+## data:  test1 and test2
+## V = 21, p-value = 0.157
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\subsubsection{Wilcox Sign Rank: Compare to
+T}\label{wilcox-sign-rank-compare-to-t}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(test1,test2,}\AttributeTok{paired=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Paired t-test
+## 
+## data:  test1 and test2
+## t = -2.3684, df = 12, p-value = 0.0355
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  -12.7011701  -0.5295991
+## sample estimates:
+## mean difference 
+##       -6.615385
+\end{verbatim}
+
+\subsubsection{Wilcox Sign Rank: Compare to
+T}\label{wilcox-sign-rank-compare-to-t-1}
+
+With this study, our sample size is 13 (one pair is thrown out for
+having a difference of zero) and the distribution of changes looks like
+this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(Change)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.5\linewidth,height=0.5\textheight]{Lec36_NonParamStat_files/figure-latex/wtot-1} \end{center}
+
+\subsection{Non-parametric Test for Three or More
+Samples}\label{non-parametric-test-for-three-or-more-samples}
+
+\subsubsection{Kruskal-Wallis}\label{kruskal-wallis}
+
+\begin{itemize}
+\tightlist
+\item
+  The Kruskal-Wallis test is a non-parametric alternative to the ANOVA
+  test
+\item
+  Kruskal-Wallis looks at the medians of the groups, not the means, and
+  tests if one or more are significantly different from the rest (but
+  does not report which one):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(H_{0}\): There is no difference between the group medians
+  \item
+    \(H_{1}\): There is a statistically-significant difference in the
+    group medians
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Kruskal-Wallis}\label{kruskal-wallis-1}
+
+\begin{itemize}
+\tightlist
+\item
+  This test can be thought of as an extension of the Wilcoxon Rank-Sum
+  test
+\item
+  We will not do this one by hand
+\item
+  In R the syntax is generally:
+  \texttt{kruskal.test(outcome\ \textasciitilde{}\ group,\ dataset)}
+\end{itemize}
+
+\subsubsection{Kruskal-Wallis}\label{kruskal-wallis-2}
+
+\begin{verbatim}
+## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  outcome by treatment
+## Kruskal-Wallis chi-squared = 13.096, df = 3, p-value = 0.004434
+\end{verbatim}
+
+\subsubsection{Non-Parametric Summary}\label{non-parametric-summary}
+
+\begin{itemize}
+\tightlist
+\item
+  Most parametric tests have an analogous non-parametric test
+\item
+  We have covered the following:
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2679}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2857}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4464}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Samples
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Parametric
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Non Parametric
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Two independent samples & two sample t-test & Wilcoxon rank sum \\
+Two paired samples & paired t-test & Wilcoxon sign rank \\
+Three or more samples & ANOVA & Kruskal-Wallis \\
+\end{longtable}
+
+\subsubsection{Non parametrics in R}\label{non-parametrics-in-r}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2727}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2727}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4545}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Samples
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+test name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R function
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Two independent samples & Wilcoxon rank sum &
+\texttt{wilcox.test(group1,group2,paired=F)} \\
+Two paired samples & Wilcoxon sign rank &
+\texttt{wilcox.test(Pair(group1,group2)\ \textasciitilde{}\ 1)} \\
+Three or more samples & Kruskal-Wallis &
+\texttt{kruskal.test(outcome\ \textasciitilde{}\ group)} \\
+\end{longtable}
+
+\subsubsection{Parting humor}\label{parting-humor}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{./images/boyfriend} \end{center}
+
+\end{document}
