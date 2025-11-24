@@ -5,9 +5,9 @@ author: "Corrine Riddell (Instructor: Tomer Altman)"
 date: "November 21, 2025"
 output:
   #slidy_presentation: default
-  #beamer_presentation:
-  #  slide_level: 3
-  pdf_document:
+  beamer_presentation:
+    slide_level: 3
+  #pdf_document:
 header-includes:
 - \usetheme{Goettingen}
 - \renewcommand{\textbf}{\structure}
@@ -96,7 +96,7 @@ knitr::include_graphics("./images/concussion_nejm.PNG")
 
 > STATISTICAL ANALYSIS
 
-> Between-group comparisons of age, years of education, and MMSE scores were analyzed with **Mann–Whitney U tests**. Group differences in race were analyzed with the use of **chi-square tests**. For between-group comparisons of amyloid-beta plaque burden, chi-square tests were used to compare the proportion of participants with a positive florbetapir PET, and **t-tests** were used to compare the mean cortical:cerebellar florbetapir standard uptake value ratio (SUVR, the ratio of radioactivity in a cerebral region to that in the cerebellum as a reference) between the groups. 
+> Between-group comparisons of age, years of education, and MMSE scores were analyzed with **Mann–Whitney U tests**. Group differences in race were analyzed with the use of **chi-square tests**. For between-group comparisons of amyloid-beta plaque burden, chi-square tests were used to compare the proportion of participants with a positive florbetapir PET, and **$t$-tests** were used to compare the mean cortical:cerebellar florbetapir standard uptake value ratio (SUVR, the ratio of radioactivity in a cerebral region to that in the cerebellum as a reference) between the groups. 
 
 ### From the article
 
@@ -108,9 +108,9 @@ knitr::include_graphics("./images/concussion_graphs.PNG")
 ### Roadmap
 Parametric Testing:
 
-- One sample comparison to a mean (one sample t-test)
-- Two independent samples (two sample t-test)
-- Two non-independent samples (paired t-test)
+- One sample comparison to a mean (one sample $t$-test)
+- Two independent samples (two sample $t$-test)
+- Two non-independent samples (paired $t$-test)
 - Multiple samples/groups (ANOVA)
   - Bonferroni
   - Tukey's HSD
@@ -182,7 +182,7 @@ In one paper in 1945 he proposed both the Wilcoxon rank-sum test and the Wilcoxo
 ### Wilcoxon Rank-Sum
 - Sometimes also called the Mann-Whitney U test
 - Non-parametric test for comparing two independent samples with a continuous outcome
-- This is the non-parametric counterpart of the two sample t-test 
+- This is the non-parametric counterpart of the two sample $t$-test 
 - Assumes that the distributions have the same general shape but assumes nothing about that shape
 - Evaluates the null hypothesis that the two population distributions are identical
 
@@ -246,7 +246,7 @@ $$Z_{w}=\frac{W-\mu_w}{\sigma_{w}}=\frac{19.5-27.5}{4.8}=-1.67$$
 
 ### Wilcoxon Rank-Sum
 The $Z_{w}$ we generate follows an approximate standard Normal distribution.
-So we can use our Z score to get a p-value in R
+So we can use our Z score to get a $p$-value in R
 ```{r, echo=TRUE}
 2*pnorm(-1.67)
 ```
@@ -335,7 +335,7 @@ femalesht <- nhanes$bmxht[nhanes$gender=="Female"]
 ```
 
 ### Wilcoxon Rank-Sum vs T
-```{r, echo=TRUE, out.width="60%", fig.align='center', message=FALSE, warning=FALSE}
+```{r, echo=TRUE, out.width="40%", fig.align='center', message=FALSE, warning=FALSE}
 ggplot(nhanes, aes(x = bmxht)) + 
   geom_density(aes(fill=gender), alpha=0.1) +
   theme_minimal(base_size = 15)
@@ -354,15 +354,15 @@ wilcox.test(malesht,femalesht)
 
 
 ### Wilcoxon Rank-Sum vs T
-- When the sample size is quite large (as with these NHANES data)  the assumption of approximate normality (due to CLT) is reasonable one and the results of the hypothesis testing will generally not be different using a parametric or non-parametric approach.
-- In smaller sample sizes, with potential outliers, can get more reliable results using Wilcoxon (exact version) than equivalent t-test
+- When the sample size is quite large (as with these NHANES data)  the assumption of approximate normality (due to CLT) is reasonable one and the results of the hypothesis testing will generally not be different using a parametric or non-parametric approach
+- In smaller sample sizes, with potential outliers, can get more reliable results using Wilcoxon (exact version) than equivalent $t$-test
 
 
 ## Wilcoxon Sign Rank
 
 ### Wilcoxon Sign Rank
 - Non-parametric test for comparing two non-independent (paired) sample means
-- This is the non-parametric counterpart of the paired t-test
+- This is the non-parametric counterpart of the paired $t$-test
 - Assumes that the distributions have the same general shape but assumes nothing about that shape
 - Evaluates the null hypothesis that the difference between the paired values is 0
 
@@ -414,12 +414,20 @@ prepost<-data.frame(Change,test1,test2)
 |---------|------|
 
 ### Sign Rank Example
-```{r, echo=FALSE, out.width="60%", fig.align='center', message=FALSE, warning=FALSE}
+::: columns
+:::: column
+```{r, echo=FALSE, out.width="100%", fig.align='center', message=FALSE, warning=FALSE}
 ggplot(prepost) + 
   geom_density(aes(test1), col="blue") +
   geom_density(aes(test2), col="green") +
   theme_minimal(base_size = 15)
 ```
+::::
+
+:::: column
+Note the central peak in the data.
+::::
+:::
 
 ### Sign Rank Example: Calculate Difference and Sign
 
@@ -528,10 +536,19 @@ t.test(test1,test2,paired=TRUE)
 ```
 
 ### Wilcox Sign Rank:  Compare to T
-With this study, our sample size is 13 (one pair is thrown out for having a difference of zero) and the distribution of changes looks like this:
-```{r wtot, echo=TRUE, out.width="50%", fig.align='center',out.height="50%"}
+::: columns
+:::: column
+- Our sample size is 13 (one pair is thrown out for having a difference of zero)
+- Note the $t$-test had more power due to the data having a symmetric peak
+- The distribution of change is plotted as a histogram
+::::
+
+:::: column
+```{r wtot, echo=TRUE, out.width="100%", fig.align='center',out.height="50%"}
 hist(Change)
 ```
+::::
+:::
 
 
 
@@ -570,8 +587,8 @@ kruskal.test(outcome~ treatment, data=KW_data)
 
 |Samples |Parametric | Non Parametric       |
 |---------------|----------------|-------------------------|
-| Two independent samples   | two sample t-test       | Wilcoxon rank sum|
-| Two paired samples        | paired t-test |  Wilcoxon sign rank      |
+| Two independent samples   | two sample $t$-test       | Wilcoxon rank sum|
+| Two paired samples        | paired $t$-test |  Wilcoxon sign rank      |
 | Three or more samples     | ANOVA     | Kruskal-Wallis |
 
 ### Non parametrics in R
@@ -590,3 +607,4 @@ kruskal.test(outcome~ treatment, data=KW_data)
 knitr::include_graphics("./images/boyfriend.PNG")
 ```
 
+### Check your understanding!
